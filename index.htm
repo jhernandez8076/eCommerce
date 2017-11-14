@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+    <html>
+        <head>
+        <style>
+        </style>
+        <script>
+           var pr1=5;
+           var pr2=10;
+           var pr3=14;
+          
+           function initPrices(){
+               document.getElementById("span1").innerHTML="Prices: $"+pr1+"<br>";
+               document.getElementById("span2").innerHTML="Prices: $"+pr2+"<br>";
+               document.getElementById("span3").innerHTML="Prices: $"+pr3+"<br>";
+           }
+
+           function processOrder(){
+                var op=document.getElementById("output");
+
+                var q1= parseInt(document.getElementById("qty1").value);
+                var q2= parseInt(document.getElementById("qty2").value);
+                var q3= parseInt(document.getElementById("qty3").value);
+
+
+                var wpr1=4;
+                var wpr2=9;
+                var wpr3=13;
+
+                var Customer_Subtotal = (pr1*q1)+(pr2*q2)+(pr3*q3);
+                var Tax = parseFloat((Customer_Subtotal*0.0875).toFixed(2));
+
+                var Company_Subtotal = (wpr1*q1)+(wpr2*q2)+(wpr3*q3);
+                var Profit = Customer_Subtotal-Company_Subtotal;
+                var TotalItemsSold = q1+q2+q3;
+
+                var Shipping;
+                if (Customer_Subtotal<100){
+                    Shipping=25;
+                }else if (Customer_Subtotal>=100 && Customer_Subtotal<=200){
+                    Shipping=10;
+                }else{
+                    Shipping=0;
+                }
+
+                var Total = Customer_Subtotal+Tax+Shipping;
+
+                //build
+                var Customer_Info = "";
+                Customer_Info += "<h4> Customer Info </h4>";
+                Customer_Info += "------------------------<br>";
+                Customer_Info += "Subtotal: $" + Customer_Subtotal + "<br>";
+                Customer_Info += "Tax: $" + Tax + "<br>";
+                Customer_Info += "Shipping: $" + Shipping + "<br>";
+                Customer_Info += "Total: $" + Total + "<br>";
+
+                var Company_Info = "";
+                Company_Info += "<h4> Company Info </h4>";
+                Company_Info += "------------------------<br>";
+                Company_Info += "Customer Subtotal: $" + Customer_Subtotal + "<br>";
+                Company_Info += "Company Subtotal: $" + Company_Subtotal + "<br>";
+                Company_Info += "Profit: $" + Profit + "<br>";
+                Company_Info += "Total Items Sold: " + TotalItemsSold + "<br>";
+
+                
+                //innerHTML allows you to write HTML into an element such as a div
+                op.innerHTML = Customer_Info + "<br><hr>" + Company_Info;
+
+           }
+
+        </script>
+
+
+        </head>
+        <body onload="initPrices()">
+            <h1>Jose's Taco Shop</h1>
+            <hr>
+            <div>
+                <!-- Item 1 -->
+                <img src = " Taco1.png" width = "500px" height="200px"><br>
+                <p>1 Taco With Meat. This Taco is the most spicy
+                     one and the most delicious.</p><br>
+                <span id="span1"></span><input type = "Text" id = "qty1" placeholder = "Enter #">
+            </div>
+        
+            <hr>
+            <div>
+                <!-- Item 2 -->
+                <img src = " Taco2.png" width = "500px" height="200px"><br>
+                <p>2 Tacos With Avocado And Onions. These tasty Tacos would make you feel like buying more and more.</p><br>
+                <span id="span2"></span><input type = "Text" id = "qty2" placeholder = "Enter #">
+            </div>
+
+            <hr>
+            <div>
+                <!--Item 3-->
+                <img src = " Taco3.png" width = "500px" height="200px"><br>
+                <p>3 Large Tacos With Onions. These Tacos is going to make you full for an entire day.</p><br>
+                <span id="span3"></span><input type = "Text" id = "qty3" placeholder = "Enter #">
+            </div>
+            
+
+            <button onclick="processOrder()"> Process Order </button>
+            <div id="output"></div>
+        </body>
+    </html>
